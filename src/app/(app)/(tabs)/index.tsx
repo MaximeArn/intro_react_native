@@ -1,9 +1,10 @@
 import { FlatList, StatusBar, StyleSheet } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import IngredientCard from "../../components/ingredient-card";
-import { data as ingredients } from "../../data/data.json";
 
-const Home = () => (
+import IngredientCard from "../../../components/ingredient-card";
+import { data as ingredients } from "../../../data/data.json";
+
+const ProductsList = () => (
   <SafeAreaProvider>
     <SafeAreaView style={styles.container}>
       <FlatList
@@ -22,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default ProductsList;

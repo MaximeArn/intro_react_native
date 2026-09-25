@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
+import useShoppingStore from "@/stores/shoppingList.store";
 import { Ingredient } from "@/types/ingredient";
 import { router } from "expo-router";
 
@@ -8,6 +9,15 @@ type IngredientCardProps = {
 };
 
 export default function IngredientCard({ ingredient }: IngredientCardProps) {
+  const addItem = useShoppingStore((state) => state.addItem);
+  const removeItem = useShoppingStore((state) => state.removeItem);
+  const isInList = useShoppingStore((state) =>
+    state.itemIds.includes(ingredient.id),
+  );
+
+  const toggleItem = () =>
+    isInList ? removeItem(ingredient.id) : addItem(ingredient.id);
+
   return (
     <Pressable onPress={() => router.push(`/ingredients/${ingredient.id}`)}>
       <View style={styles.card}>
@@ -15,7 +25,16 @@ export default function IngredientCard({ ingredient }: IngredientCardProps) {
           <Text style={styles.name}>{ingredient.name}</Text>
           <Text style={styles.category}>{ingredient.category}</Text>
         </View>
-        <Text style={styles.price}>{ingredient.price.toFixed(2)} €</Text>
+        <View style={styles.actions}>
+          <Text style={styles.price}>{ingredient.price.toFixed(2)} €</Text>
+          <Pressable
+            style={[styles.button, isInList && styles.removeButton]}
+            onPress={toggleItem}
+            hitSlop={8}
+          >
+            <Text style={styles.buttonText}>{isInList ? "−" : "+"}</Text>
+          </Pressable>
+        </View>
       </View>
     </Pressable>
   );
@@ -52,8 +71,28 @@ const styles = StyleSheet.create({
     color: "#888",
   },
   price: {
-    fontSize: 16,
+    fontSize: 14,
+    fontWeight: "500",
+  },
+  actions: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+  button: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: "#2e7d32",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  removeButton: {
+    backgroundColor: "#c62828",
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
     fontWeight: "700",
-    color: "#2e7d32",
   },
 });
