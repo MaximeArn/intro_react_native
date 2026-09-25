@@ -1,25 +1,46 @@
-import { FlatList, StatusBar, StyleSheet } from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { useEffect } from "react";
+import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
 
-import IngredientCard from "../../../components/ingredient-card";
-import { data as ingredients } from "../../../data/data.json";
+import IngredientCard from "@/components/ingredient-card";
+import useIngredientsStore from "@/stores/ingredients.store";
 
-const ProductsList = () => (
-  <SafeAreaProvider>
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={ingredients}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <IngredientCard ingredient={item} />}
-      />
-    </SafeAreaView>
-  </SafeAreaProvider>
-);
+const ProductsList = () => {
+  const ingredients = useIngredientsStore((state) => state.ingredients);
+  const isLoading = useIngredientsStore((state) => state.isLoading);
+  const fetchIngredients = useIngredientsStore(
+    (state) => state.fetchIngredients,
+  );
+
+  useEffect(() => {
+    fetchIngredients();
+  }, [fetchIngredients]);
+
+  if (isLoading) {
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  return (
+    <FlatList
+      data={ingredients}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => <IngredientCard ingredient={item} />}
+      contentContainerStyle={styles.container}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
+    paddingVertical: 8,
+  },
+  loader: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

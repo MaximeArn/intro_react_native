@@ -1,6 +1,6 @@
 const { initializeApp, cert } = require("firebase-admin/app");
 const { getFirestore } = require("firebase-admin/firestore");
-const serviceAccount = require("./supinfo-test-b4a73-firebase-adminsdk-fbsvc-60d5dcef42.json");
+const serviceAccount = require("../../mobd-cours-firebase-adminsdk-fbsvc-eb219dffd5.json");
 
 // Initialiser l'application Firebase Admin (SDK Node, pas @react-native-firebase)
 initializeApp({
@@ -35,7 +35,9 @@ const importData = async () => {
     });
 
     await batch.commit();
-    console.log(`Batch ${i / BATCH_SIZE + 1} : ${chunk.length} document(s) importé(s)`);
+    console.log(
+      `Batch ${i / BATCH_SIZE + 1} : ${chunk.length} document(s) importé(s)`,
+    );
   }
 
   console.log(`Data imported successfully! (${data.length} ingrédients)`);

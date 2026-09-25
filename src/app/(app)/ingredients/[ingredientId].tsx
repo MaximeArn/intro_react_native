@@ -1,12 +1,28 @@
 import { Stack, useLocalSearchParams } from "expo-router";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { data as ingredients } from "../../../data/data.json";
+import {
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+
+import useIngredientsStore from "@/stores/ingredients.store";
 
 export default function IngredientDetail() {
   const { ingredientId } = useLocalSearchParams<{ ingredientId: string }>();
-  const ingredient = ingredients.find(
-    (ingredient) => ingredient.id.toString() === ingredientId,
+  const isLoading = useIngredientsStore((state) => state.isLoading);
+  const ingredient = useIngredientsStore((state) =>
+    state.ingredients.find((ingredient) => ingredient.id === ingredientId),
   );
+
+  if (isLoading) {
+    return (
+      <View style={styles.notFound}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   if (!ingredient) {
     return (

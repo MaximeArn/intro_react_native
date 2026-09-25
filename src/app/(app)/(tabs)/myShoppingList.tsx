@@ -1,10 +1,11 @@
 import { FlatList, StyleSheet, Text } from "react-native";
 
 import IngredientCard from "@/components/ingredient-card";
-import { data as ingredients } from "@/data/data.json";
+import useIngredientsStore from "@/stores/ingredients.store";
 import useShoppingStore from "@/stores/shoppingList.store";
 
 export default function MyShoppingList() {
+  const ingredients = useIngredientsStore((state) => state.ingredients);
   const itemIds = useShoppingStore((state) => state.itemIds);
   const shoppingList = ingredients.filter((ingredient) =>
     itemIds.includes(ingredient.id),
@@ -13,7 +14,7 @@ export default function MyShoppingList() {
   return (
     <FlatList
       data={shoppingList}
-      keyExtractor={(item) => item.id.toString()}
+      keyExtractor={(item) => item.id}
       renderItem={({ item }) => <IngredientCard ingredient={item} />}
       contentContainerStyle={styles.container}
       ListEmptyComponent={

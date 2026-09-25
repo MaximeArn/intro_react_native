@@ -5,7 +5,7 @@ import {
   type User,
 } from "@react-native-firebase/auth";
 import { create } from "zustand";
-import firebaseAuthInstance from "../config/firebase";
+import firebaseAuthInstance from "../config/firebase/auth";
 
 type SigInOptions = {
   email: string;
