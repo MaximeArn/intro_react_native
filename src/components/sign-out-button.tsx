@@ -7,6 +7,7 @@ export default function SignOutButton() {
 
   return (
     <Pressable
+      testID="sign-out-button"
       onPress={signOut}
       hitSlop={8}
       style={({ pressed }) => [styles.button, pressed && styles.pressed]}

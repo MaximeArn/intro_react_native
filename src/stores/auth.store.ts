@@ -1,11 +1,11 @@
+import { create } from "zustand";
 import {
+  auth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
   type User,
-} from "@react-native-firebase/auth";
-import { create } from "zustand";
-import firebaseAuthInstance from "../config/firebase/auth";
+} from "../config/firebase";
 
 type SigInOptions = {
   email: string;
@@ -23,7 +23,7 @@ const useAuthStore = create<AuthState>()(() => ({
   user: null,
   isLoading: true,
   signIn: ({ email, password }: SigInOptions) => {
-    signInWithEmailAndPassword(firebaseAuthInstance, email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         console.log("User signed in!");
       })
@@ -41,13 +41,13 @@ const useAuthStore = create<AuthState>()(() => ({
       });
   },
   signOut: () => {
-    signOut(firebaseAuthInstance).then(() => console.log("User signed out!"));
+    signOut(auth).then(() => console.log("User signed out!"));
   },
 }));
 
 // Firebase appelle ce callback au démarrage (session restaurée ou non),
 // puis à chaque connexion / déconnexion.
-onAuthStateChanged(firebaseAuthInstance, (user) => {
+onAuthStateChanged(auth, (user) => {
   useAuthStore.setState({ user, isLoading: false });
 });
 

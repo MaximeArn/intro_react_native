@@ -25,6 +25,7 @@ const ProductsList = () => {
 
   return (
     <FlatList
+      testID="products-list"
       data={ingredients}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => <IngredientCard ingredient={item} />}

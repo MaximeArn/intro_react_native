@@ -6,8 +6,9 @@ import useAuthStore from "../stores/auth.store";
 export default function Root() {
   return (
     <>
-      <SplashScreenController />
       <RootNavigator />
+      {/* Après le navigateur pour s'afficher par-dessus */}
+      <SplashScreenController />
     </>
   );
 }

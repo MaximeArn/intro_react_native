@@ -12,6 +12,7 @@ export default function SignIn() {
     <View style={styles.container}>
       <Text style={styles.welcomeText}>Bienvenu !</Text>
       <TextInput
+        testID="email-input"
         style={styles.input}
         value={email}
         onChangeText={setEmail}
@@ -22,6 +23,7 @@ export default function SignIn() {
         autoComplete="email"
       />
       <TextInput
+        testID="password-input"
         style={styles.input}
         value={password}
         onChangeText={setPassword}
@@ -31,6 +33,7 @@ export default function SignIn() {
         autoComplete="current-password"
       />
       <Pressable
+        testID="sign-in-button"
         style={({ pressed }) => [
           styles.button,
           pressed && styles.buttonPressed,

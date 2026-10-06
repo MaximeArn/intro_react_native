@@ -1,0 +1,41 @@
+appId: com.maximearnould.intro
+name: Connexion puis déconnexion
+env:
+  EMAIL: test@gmail.com
+  PASSWORD: test123!
+---
+# Part déconnecté (voir sign-in.yaml)
+- launchApp:
+    clearKeychain: true
+
+- extendedWaitUntil:
+    visible:
+      id: "email-input"
+    timeout: 15000
+
+# Connexion
+- tapOn:
+    id: "email-input"
+- inputText: ${EMAIL}
+
+- tapOn:
+    id: "password-input"
+- inputText: ${PASSWORD}
+
+- tapOn:
+    id: "sign-in-button"
+
+# Connecté : la liste des produits s'affiche
+- extendedWaitUntil:
+    visible:
+      id: "products-list"
+    timeout: 15000
+
+# Déconnexion : retour sur l'écran de connexion
+- tapOn:
+    id: "sign-out-button"
+
+- extendedWaitUntil:
+    visible:
+      id: "email-input"
+    timeout: 15000

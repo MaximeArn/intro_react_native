@@ -1,6 +1,5 @@
-import { addDoc, collection, getDocs } from "@react-native-firebase/firestore";
 import { create } from "zustand";
-import db from "../config/firebase/firestore";
+import { addDoc, collection, db, getDocs } from "../config/firebase";
 import { Ingredient } from "../types/ingredient";
 
 type IngredientsState = {
