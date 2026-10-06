@@ -1,4 +1,5 @@
 import { router } from "expo-router";
+import LottieView from "lottie-react-native";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
@@ -9,6 +10,7 @@ import {
   spacing,
   typography,
 } from "@/constants/theme";
+import carrotAnimation from "../../assets/lotties/carrot.json";
 import useAuthStore from "../stores/auth.store";
 
 export default function SignIn() {
@@ -19,8 +21,14 @@ export default function SignIn() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.brand}>Le Panier</Text>
-        <Text style={styles.tagline}>Tes courses, comme au marché.</Text>
+        <LottieView
+          source={carrotAnimation}
+          autoPlay
+          loop
+          style={styles.animation}
+        />
+        <Text style={styles.brand}>Mes Bonnes Adresses</Text>
+        <Text style={styles.tagline}>Tes lieux favoris, au même endroit.</Text>
       </View>
 
       <View style={styles.form}>
@@ -75,6 +83,13 @@ const styles = StyleSheet.create({
   },
   header: {
     gap: spacing.xs,
+  },
+  animation: {
+    // Même ratio que l'animation (400 × 280)
+    width: 220,
+    height: 154,
+    alignSelf: "center",
+    marginBottom: spacing.md,
   },
   brand: {
     ...typography.title,

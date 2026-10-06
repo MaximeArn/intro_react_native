@@ -25,10 +25,10 @@ env:
 - tapOn:
     id: "sign-in-button"
 
-# Connecté : la liste des produits s'affiche
+# Connecté : l'écran d'accueil s'affiche
 - extendedWaitUntil:
     visible:
-      id: "products-list"
+      id: "home-screen"
     timeout: 15000
 
 # Déconnexion depuis l'onglet Compte : retour sur l'écran de connexion

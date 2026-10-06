@@ -31,10 +31,6 @@ export default {
       predictiveBackGestureEnabled: false,
       package: "com.maximearnould.intro",
     },
-    web: {
-      output: "static",
-      favicon: "./assets/images/favicon.png",
-    },
     plugins: [
       "expo-router",
       [

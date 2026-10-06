@@ -13,10 +13,6 @@ export default function RootLayout() {
       }}
     >
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen
-        name="ingredients/new"
-        options={{ title: "Nouveau produit" }}
-      />
     </Stack>
   );
 }

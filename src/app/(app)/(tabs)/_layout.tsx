@@ -17,18 +17,22 @@ export default function RootLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Produits",
+          title: "Accueil",
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="carrot" color={color} size={size} />
+            <MaterialCommunityIcons name="home" color={color} size={size} />
           ),
         }}
       />
       <Tabs.Screen
-        name="myShoppingList"
+        name="list"
         options={{
-          title: "Mon panier",
+          title: "Liste",
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="basket" color={color} size={size} />
+            <MaterialCommunityIcons
+              name="format-list-bulleted"
+              color={color}
+              size={size}
+            />
           ),
         }}
       />

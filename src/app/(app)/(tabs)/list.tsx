@@ -2,10 +2,10 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { typography } from "@/constants/theme";
 
-export default function Home() {
+export default function List() {
   return (
-    <View testID="home-screen" style={styles.container}>
-      <Text style={styles.title}>Accueil</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Liste</Text>
     </View>
   );
 }

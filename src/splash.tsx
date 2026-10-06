@@ -1,17 +1,17 @@
 import { SplashScreen } from "expo-router";
 import LottieView from "lottie-react-native";
+
+import loadingAnimation from "../assets/lotties/basket.json";
 import { StyleSheet, View } from "react-native";
 import { colors } from "./constants/theme";
 import useAuthStore from "./stores/auth.store";
-import useIngredientsStore from "./stores/ingredients.store";
 
 SplashScreen.preventAutoHideAsync();
 
 export function SplashScreenController() {
   const isAuthLoading = useAuthStore((state) => state.isLoading);
-  const isDataLoading = useIngredientsStore((state) => state.isLoading);
 
-  if (!isAuthLoading && !isDataLoading) {
+  if (!isAuthLoading) {
     SplashScreen.hide();
     return null;
   }
@@ -19,7 +19,7 @@ export function SplashScreenController() {
   return (
     <View style={styles.container}>
       <LottieView
-        source={require("../assets/animations/loading.lottie")}
+        source={loadingAnimation}
         autoPlay
         loop
         onAnimationLoaded={() => SplashScreen.hide()}
@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   animation: {
-    width: 180,
-    height: 180,
+    // Même ratio que l'animation (400 × 280)
+    width: 240,
+    height: 168,
   },
 });
