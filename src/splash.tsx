@@ -1,6 +1,7 @@
 import { SplashScreen } from "expo-router";
 import LottieView from "lottie-react-native";
 import { StyleSheet, View } from "react-native";
+import { colors } from "./constants/theme";
 import useAuthStore from "./stores/auth.store";
 import useIngredientsStore from "./stores/ingredients.store";
 
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
 
-    backgroundColor: "#ece4b6",
+    backgroundColor: colors.background,
   },
   animation: {
     width: 180,

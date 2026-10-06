@@ -7,6 +7,7 @@ import {
   View,
 } from "react-native";
 
+import { colors, radius, shadow, spacing, typography } from "@/constants/theme";
 import useIngredientsStore from "@/stores/ingredients.store";
 
 export default function IngredientDetail() {
@@ -19,7 +20,7 @@ export default function IngredientDetail() {
   if (isLoading) {
     return (
       <View style={styles.notFound}>
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color={colors.primary} />
       </View>
     );
   }
@@ -76,78 +77,66 @@ export default function IngredientDetail() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
-    gap: 16,
+    padding: spacing.md,
+    gap: spacing.md,
   },
   header: {
     alignItems: "flex-start",
-    gap: 8,
-    paddingVertical: 8,
+    gap: spacing.sm,
+    paddingVertical: spacing.sm,
   },
   badge: {
-    backgroundColor: "#e8f5e9",
+    backgroundColor: colors.primarySoft,
     paddingHorizontal: 10,
     paddingVertical: 4,
-    borderRadius: 999,
+    borderRadius: radius.pill,
   },
   badgeText: {
     fontSize: 12,
-    fontWeight: "600",
-    color: "#2e7d32",
+    fontWeight: "700",
+    color: colors.primary,
   },
   name: {
-    fontSize: 28,
-    fontWeight: "700",
-    color: "#1a1a1a",
+    ...typography.title,
   },
   price: {
-    fontSize: 22,
-    fontWeight: "700",
-    color: "#2e7d32",
+    fontSize: 24,
+    fontWeight: "800",
+    color: colors.accent,
   },
   section: {
-    backgroundColor: "#fff",
-    borderRadius: 12,
-    padding: 16,
-    gap: 8,
-    // Ombre iOS
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 2 },
-    // Ombre Android
-    elevation: 2,
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    padding: spacing.md,
+    gap: spacing.sm,
+    ...shadow.card,
   },
   sectionTitle: {
-    fontSize: 13,
-    fontWeight: "600",
-    color: "#888",
-    textTransform: "uppercase",
-    letterSpacing: 0.5,
+    ...typography.overline,
   },
   description: {
     fontSize: 15,
     lineHeight: 22,
-    color: "#333",
+    color: colors.text,
   },
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
     paddingVertical: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: "#ddd",
+    borderBottomColor: colors.border,
   },
   lastRow: {
     borderBottomWidth: 0,
   },
   label: {
     fontSize: 15,
-    color: "#666",
+    color: colors.textMuted,
   },
   value: {
     fontSize: 15,
-    fontWeight: "500",
-    color: "#1a1a1a",
+    fontWeight: "600",
+    color: colors.text,
   },
   notFound: {
     flex: 1,
@@ -155,7 +144,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   notFoundText: {
-    fontSize: 16,
-    color: "#888",
+    ...typography.body,
+    color: colors.textMuted,
   },
 });

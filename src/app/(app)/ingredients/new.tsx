@@ -12,6 +12,7 @@ import {
   ViewStyle,
 } from "react-native";
 
+import { colors, radius, shadow, spacing, typography } from "@/constants/theme";
 import { Ingredient } from "@/types/ingredient";
 import useIngredientsStore from "../../../stores/ingredients.store";
 
@@ -120,32 +121,35 @@ function FormField({
   return (
     <View style={[styles.field, containerStyle]}>
       <Text style={styles.label}>{label}</Text>
-      <TextInput style={[styles.input, style]} {...inputProps} />
+      <TextInput
+        style={[styles.input, style]}
+        placeholderTextColor={colors.textMuted}
+        {...inputProps}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
-    gap: 16,
+    padding: spacing.md,
+    gap: spacing.md,
   },
   field: {
     gap: 6,
   },
   label: {
-    fontSize: 13,
-    fontWeight: "600",
-    color: "#666",
+    ...typography.overline,
   },
   input: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.surface,
     borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 10,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
+    borderColor: colors.border,
+    borderRadius: radius.md,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
     fontSize: 16,
+    color: colors.text,
   },
   multiline: {
     minHeight: 90,
@@ -159,21 +163,24 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   button: {
-    backgroundColor: "#2e7d32",
-    paddingVertical: 14,
-    borderRadius: 12,
+    backgroundColor: colors.primary,
+    height: 52,
+    borderRadius: radius.md,
     alignItems: "center",
-    marginTop: 8,
+    justifyContent: "center",
+    marginTop: spacing.sm,
+    ...shadow.button,
   },
   buttonDisabled: {
-    backgroundColor: "#a5d6a7",
+    backgroundColor: colors.primaryDisabled,
+    boxShadow: "none",
   },
   buttonPressed: {
-    opacity: 0.8,
+    backgroundColor: colors.primaryPressed,
   },
   buttonText: {
-    color: "#fff",
+    color: colors.onPrimary,
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: "700",
   },
 });

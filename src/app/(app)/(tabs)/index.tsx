@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
 
+import AddIngredientButton from "@/components/add-ingredient-button";
 import IngredientCard from "@/components/ingredient-card";
+import { colors } from "@/constants/theme";
 import useIngredientsStore from "@/stores/ingredients.store";
 
 const ProductsList = () => {
@@ -18,25 +20,35 @@ const ProductsList = () => {
   if (isLoading) {
     return (
       <View style={styles.loader}>
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color={colors.primary} />
       </View>
     );
   }
 
   return (
-    <FlatList
-      testID="products-list"
-      data={ingredients}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => <IngredientCard ingredient={item} />}
-      contentContainerStyle={styles.container}
-    />
+    <View style={styles.screen}>
+      <FlatList
+        testID="products-list"
+        data={ingredients}
+        keyExtractor={(item) => item.id}
+        numColumns={2}
+        renderItem={({ item }) => <IngredientCard ingredient={item} />}
+        contentContainerStyle={styles.container}
+      />
+      <AddIngredientButton />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
   container: {
-    paddingVertical: 8,
+    paddingTop: 8,
+    paddingHorizontal: 10,
+    // Laisse de la place pour que le FAB ne cache pas la dernière carte
+    paddingBottom: 100,
   },
   loader: {
     flex: 1,

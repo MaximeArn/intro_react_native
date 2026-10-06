@@ -1,5 +1,7 @@
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Pressable, StyleSheet, Text } from "react-native";
 
+import { colors, radius } from "@/constants/theme";
 import useAuthStore from "@/stores/auth.store";
 
 export default function SignOutButton() {
@@ -9,24 +11,30 @@ export default function SignOutButton() {
     <Pressable
       testID="sign-out-button"
       onPress={signOut}
-      hitSlop={8}
       style={({ pressed }) => [styles.button, pressed && styles.pressed]}
     >
-      <Text style={styles.text}>Déconnexion</Text>
+      <MaterialCommunityIcons name="logout" size={20} color={colors.accent} />
+      <Text style={styles.text}>Se déconnecter</Text>
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
-    marginHorizontal: 16,
+    height: 52,
+    borderRadius: radius.md,
+    backgroundColor: colors.accentSoft,
+    flexDirection: "row",
+    gap: 8,
+    alignItems: "center",
+    justifyContent: "center",
   },
   pressed: {
-    opacity: 0.5,
+    opacity: 0.7,
   },
   text: {
-    color: "#c62828",
-    fontSize: 15,
-    fontWeight: "600",
+    color: colors.accent,
+    fontSize: 16,
+    fontWeight: "700",
   },
 });

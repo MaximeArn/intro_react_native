@@ -1,29 +1,45 @@
-import { Link } from "expo-router";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { router } from "expo-router";
 import { Pressable, StyleSheet, Text } from "react-native";
 
+import { colors, radius, shadow, spacing } from "@/constants/theme";
+
+// Bouton flottant étendu (icône + libellé) en bas à droite de l'écran
 export default function AddIngredientButton() {
   return (
-    <Link href="/ingredients/new" asChild>
-      <Pressable
-        hitSlop={8}
-        style={({ pressed }) => [styles.button, pressed && styles.pressed]}
-      >
-        <Text style={styles.text}>+ Ajouter</Text>
-      </Pressable>
-    </Link>
+    <Pressable
+      testID="add-ingredient-button"
+      onPress={() => router.push("/ingredients/new")}
+      style={({ pressed }) => [styles.button, pressed && styles.pressed]}
+    >
+      <MaterialCommunityIcons name="plus" size={22} color={colors.onPrimary} />
+      <Text style={styles.text}>Nouveau produit</Text>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
-    marginHorizontal: 16,
+    position: "absolute",
+    right: spacing.lg,
+    bottom: spacing.lg,
+    height: 56,
+    paddingLeft: spacing.md,
+    paddingRight: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.sm,
+    borderRadius: radius.pill,
+    backgroundColor: colors.primary,
+    ...shadow.button,
   },
   pressed: {
-    opacity: 0.5,
+    backgroundColor: colors.primaryPressed,
+    transform: [{ scale: 0.97 }],
   },
   text: {
-    color: "#2e7d32",
-    fontSize: 15,
-    fontWeight: "600",
+    color: colors.onPrimary,
+    fontSize: 16,
+    fontWeight: "700",
   },
 });

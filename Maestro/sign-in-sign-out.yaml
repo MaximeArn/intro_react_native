@@ -31,7 +31,9 @@ env:
       id: "products-list"
     timeout: 15000
 
-# Déconnexion : retour sur l'écran de connexion
+# Déconnexion depuis l'onglet Compte : retour sur l'écran de connexion
+- tapOn:
+    id: "account-tab"
 - tapOn:
     id: "sign-out-button"
 

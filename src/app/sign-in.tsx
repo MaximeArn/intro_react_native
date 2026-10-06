@@ -1,6 +1,14 @@
 import { router } from "expo-router";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+
+import {
+  colors,
+  radius,
+  shadow,
+  spacing,
+  typography,
+} from "@/constants/theme";
 import useAuthStore from "../stores/auth.store";
 
 export default function SignIn() {
@@ -10,41 +18,49 @@ export default function SignIn() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.welcomeText}>Bienvenu !</Text>
-      <TextInput
-        testID="email-input"
-        style={styles.input}
-        value={email}
-        onChangeText={setEmail}
-        placeholder="Email"
-        autoCapitalize="none"
-        autoCorrect={false}
-        keyboardType="email-address"
-        autoComplete="email"
-      />
-      <TextInput
-        testID="password-input"
-        style={styles.input}
-        value={password}
-        onChangeText={setPassword}
-        placeholder="Password"
-        autoCorrect={false}
-        secureTextEntry
-        autoComplete="current-password"
-      />
-      <Pressable
-        testID="sign-in-button"
-        style={({ pressed }) => [
-          styles.button,
-          pressed && styles.buttonPressed,
-        ]}
-        onPress={() => {
-          signIn({ email, password });
-          router.replace("/");
-        }}
-      >
-        <Text style={styles.buttonText}>Se connecter</Text>
-      </Pressable>
+      <View style={styles.header}>
+        <Text style={styles.brand}>Le Panier</Text>
+        <Text style={styles.tagline}>Tes courses, comme au marché.</Text>
+      </View>
+
+      <View style={styles.form}>
+        <TextInput
+          testID="email-input"
+          style={styles.input}
+          value={email}
+          onChangeText={setEmail}
+          placeholder="Email"
+          placeholderTextColor={colors.textMuted}
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="email-address"
+          autoComplete="email"
+        />
+        <TextInput
+          testID="password-input"
+          style={styles.input}
+          value={password}
+          onChangeText={setPassword}
+          placeholder="Mot de passe"
+          placeholderTextColor={colors.textMuted}
+          autoCorrect={false}
+          secureTextEntry
+          autoComplete="current-password"
+        />
+        <Pressable
+          testID="sign-in-button"
+          style={({ pressed }) => [
+            styles.button,
+            pressed && styles.buttonPressed,
+          ]}
+          onPress={() => {
+            signIn({ email, password });
+            router.replace("/");
+          }}
+        >
+          <Text style={styles.buttonText}>Se connecter</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -53,44 +69,51 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
-    padding: 24,
+    padding: spacing.lg,
+    gap: spacing.xl,
+    backgroundColor: colors.background,
   },
-  welcomeText: {
-    fontSize: 26,
-    fontWeight: "800",
+  header: {
+    gap: spacing.xs,
+  },
+  brand: {
+    ...typography.title,
+    fontSize: 40,
+    color: colors.primary,
+  },
+  tagline: {
+    ...typography.body,
+    color: colors.textMuted,
+  },
+  form: {
+    gap: 12,
+  },
+  input: {
+    height: 52,
+    paddingHorizontal: spacing.md,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.surface,
+    fontSize: 16,
+    color: colors.text,
   },
   button: {
-    width: "80%",
-    backgroundColor: "#2e7d32",
-    paddingVertical: 14,
-    paddingHorizontal: 32,
-    borderRadius: 12,
-    minWidth: 220,
+    height: 52,
+    marginTop: spacing.sm,
+    borderRadius: radius.md,
+    backgroundColor: colors.primary,
     alignItems: "center",
-    // Ombre iOS
-    shadowColor: "#000",
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 4 },
-    // Ombre Android
-    elevation: 3,
+    justifyContent: "center",
+    ...shadow.button,
   },
   buttonPressed: {
-    opacity: 0.8,
+    backgroundColor: colors.primaryPressed,
     transform: [{ scale: 0.98 }],
   },
   buttonText: {
-    color: "#fff",
+    color: colors.onPrimary,
     fontSize: 16,
-    fontWeight: "600",
-  },
-  input: {
-    borderRadius: 5,
-    width: "80%",
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
+    fontWeight: "700",
   },
 });
