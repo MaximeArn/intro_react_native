@@ -1,10 +1,10 @@
 import { SplashScreen } from "expo-router";
 import LottieView from "lottie-react-native";
-
-import loadingAnimation from "../assets/lotties/basket.json";
 import { StyleSheet, View } from "react-native";
-import { colors } from "./constants/theme";
-import useAuthStore from "./stores/auth.store";
+
+import { colors } from "@/constants/theme";
+import useAuthStore from "@/stores/auth.store";
+import loadingAnimation from "../../assets/lotties/map-pin.json";
 
 SplashScreen.preventAutoHideAsync();
 

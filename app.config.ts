@@ -45,10 +45,43 @@ export default {
       "@react-native-firebase/app",
       "@react-native-firebase/auth",
       [
+        "react-native-maps",
+        {
+          // iOS utilise Apple Maps (pas de clé). Android : clé "Maps SDK for Android"
+          androidGoogleMapsApiKey: process.env.GOOGLE_MAPS_ANDROID_API_KEY,
+        },
+      ],
+      [
+        "expo-location",
+        {
+          locationWhenInUsePermission:
+            "Ta position permet de centrer la carte et de localiser tes adresses.",
+        },
+      ],
+      [
+        "expo-camera",
+        {
+          cameraPermission:
+            "L'appareil photo permet de prendre en photo tes adresses et ton profil.",
+          recordAudioAndroid: false,
+        },
+      ],
+      [
+        "expo-image-picker",
+        {
+          photosPermission:
+            "L'accès aux photos permet d'illustrer tes adresses, avis et profil.",
+          cameraPermission:
+            "L'appareil photo permet de prendre en photo tes adresses et ton profil.",
+          microphonePermission: false,
+        },
+      ],
+      [
         "expo-build-properties",
         {
           ios: {
             useFrameworks: "dynamic",
+            forceStaticLinking: ["react-native-maps", "ExpoImagePicker"],
           },
         },
       ],

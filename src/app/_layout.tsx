@@ -1,8 +1,8 @@
 import { DefaultTheme, Stack, ThemeProvider } from "expo-router";
 
+import { SplashScreenController } from "@/components/splash-screen-controller";
 import { colors } from "@/constants/theme";
-import { SplashScreenController } from "@/splash";
-import useAuthStore from "../stores/auth.store";
+import useAuthStore from "@/stores/auth.store";
 
 // Couleurs appliquées aux headers, tab bar et fonds des écrans
 const navigationTheme = {
@@ -39,6 +39,7 @@ function RootNavigator() {
 
       <Stack.Protected guard={!user}>
         <Stack.Screen name="sign-in" options={{ headerShown: false }} />
+        <Stack.Screen name="sign-up" options={{ headerShown: false }} />
       </Stack.Protected>
     </Stack>
   );

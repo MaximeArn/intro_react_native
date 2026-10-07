@@ -1,5 +1,5 @@
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Alert, Pressable, StyleSheet, Text } from "react-native";
 
 import { colors, radius } from "@/constants/theme";
 import useAuthStore from "@/stores/auth.store";
@@ -10,7 +10,11 @@ export default function SignOutButton() {
   return (
     <Pressable
       testID="sign-out-button"
-      onPress={signOut}
+      onPress={() =>
+        signOut().catch(() =>
+          Alert.alert("Déconnexion impossible", "Réessaie dans un instant."),
+        )
+      }
       style={({ pressed }) => [styles.button, pressed && styles.pressed]}
     >
       <MaterialCommunityIcons name="logout" size={20} color={colors.accent} />
