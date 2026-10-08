@@ -8,3 +8,12 @@ export function formatMonthYear(raw?: string | number | null): string | null {
 
   return date.toLocaleDateString("fr-FR", { month: "long", year: "numeric" });
 }
+
+export function formatLongDate(date: Date | null): string | null {
+  if (!date || Number.isNaN(date.getTime())) return null;
+  return date.toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}

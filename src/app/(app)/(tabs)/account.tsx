@@ -1,5 +1,4 @@
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import {
   ActivityIndicator,
@@ -21,6 +20,7 @@ import { colors, radius, shadow, spacing, typography } from "@/constants/theme";
 import useAuthStore from "@/stores/auth.store";
 import { getErrorMessage } from "@/utils/error-messages";
 import { formatMonthYear } from "@/utils/format-date";
+import { pickImageFromLibrary } from "@/utils/pick-image";
 
 const AVATAR_SIZE = 112;
 const AVATAR_RING = 4;
@@ -64,15 +64,8 @@ export default function Account() {
   };
 
   const pickFromLibrary = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: "images",
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 0.5,
-    });
-    if (!result.canceled) {
-      savePhoto(() => updatePhoto(result.assets[0].uri));
-    }
+    const uri = await pickImageFromLibrary();
+    if (uri) savePhoto(() => updatePhoto(uri));
   };
 
   const handleSource = (source: ImageSource) => {

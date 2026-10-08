@@ -1,5 +1,8 @@
-// Traduit les codes d'erreur Firebase (Auth, Storage) en messages compréhensibles
+// Traduit les codes d'erreur Firebase (Auth, Storage, Firestore) en messages compréhensibles
 const messages: Record<string, string> = {
+  // Session (levée par nos services quand personne n'est connecté)
+  "auth/no-current-user": "Ta session a expiré, reconnecte-toi.",
+
   // Auth
   "auth/email-already-in-use":
     "Un compte existe déjà avec cette adresse email.",
@@ -26,6 +29,13 @@ const messages: Record<string, string> = {
   "storage/canceled": "L'envoi de la photo a été annulé.",
   "storage/object-not-found": "Cette photo est introuvable.",
   "storage/unknown": "L'envoi de la photo a échoué, réessaie.",
+
+  // Firestore
+  "firestore/permission-denied": "Tu n'as pas l'autorisation de faire ça.",
+  "firestore/unavailable":
+    "Le service est momentanément indisponible. Vérifie ta connexion et réessaie.",
+  "firestore/not-found": "Cette adresse n'existe plus.",
+  "firestore/deadline-exceeded": "La connexion est trop lente, réessaie.",
 };
 
 export const DEFAULT_ERROR_MESSAGE = "Une erreur est survenue, réessaie.";

@@ -1,44 +1,21 @@
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { Alert, Pressable, StyleSheet, Text } from "react-native";
+import { Alert } from "react-native";
 
-import { colors, radius } from "@/constants/theme";
+import DestructiveButton from "@/components/destructive-button";
 import useAuthStore from "@/stores/auth.store";
 
 export default function SignOutButton() {
   const signOut = useAuthStore((state) => state.signOut);
 
   return (
-    <Pressable
+    <DestructiveButton
       testID="sign-out-button"
+      label="Se déconnecter"
+      icon="logout"
       onPress={() =>
         signOut().catch(() =>
           Alert.alert("Déconnexion impossible", "Réessaie dans un instant."),
         )
       }
-      style={({ pressed }) => [styles.button, pressed && styles.pressed]}
-    >
-      <MaterialCommunityIcons name="logout" size={20} color={colors.accent} />
-      <Text style={styles.text}>Se déconnecter</Text>
-    </Pressable>
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  button: {
-    height: 52,
-    borderRadius: radius.md,
-    backgroundColor: colors.accentSoft,
-    flexDirection: "row",
-    gap: 8,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  pressed: {
-    opacity: 0.7,
-  },
-  text: {
-    color: colors.accent,
-    fontSize: 16,
-    fontWeight: "700",
-  },
-});

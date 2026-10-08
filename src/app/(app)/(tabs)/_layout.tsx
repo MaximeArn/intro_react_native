@@ -18,6 +18,7 @@ export default function RootLayout() {
         name="index"
         options={{
           title: "Accueil",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home" color={color} size={size} />
           ),

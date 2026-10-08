@@ -14,7 +14,18 @@ export {
   updateProfile,
   type User,
 } from "@react-native-firebase/auth";
-export { addDoc, collection, getDocs } from "@react-native-firebase/firestore";
+export {
+  collection,
+  deleteDoc,
+  doc,
+  GeoPoint,
+  onSnapshot,
+  query,
+  serverTimestamp,
+  setDoc,
+  where,
+  type QuerySnapshot,
+} from "@react-native-firebase/firestore";
 export {
   deleteObject,
   getDownloadURL,
