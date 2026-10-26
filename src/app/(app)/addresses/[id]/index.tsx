@@ -210,19 +210,8 @@ export default function AddressDetail() {
             </View>
           </View>
 
-          {address.isPublic ? (
+          {address.isPublic && (
             <ReviewsSection addressId={address.id} userId={userId} />
-          ) : (
-            <View style={styles.privateNote}>
-              <MaterialCommunityIcons
-                name="lock-outline"
-                size={18}
-                color={colors.textMuted}
-              />
-              <Text style={styles.privateNoteText}>
-                Les avis sont réservés aux adresses publiques.
-              </Text>
-            </View>
           )}
 
           {isMine && (
@@ -358,19 +347,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "700",
     color: colors.onPrimary,
-  },
-  privateNote: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: spacing.sm,
-    padding: spacing.md,
-    borderRadius: radius.md,
-    backgroundColor: colors.surfaceMuted,
-  },
-  privateNoteText: {
-    ...typography.caption,
-    flex: 1,
-    fontSize: 14,
   },
   pressed: {
     opacity: 0.7,

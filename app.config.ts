@@ -1,6 +1,7 @@
 export default {
   expo: {
-    name: "intro",
+    name: "Pinly",
+    // Lié au projet EAS / expo.dev : ne pas renommer
     slug: "intro",
     version: "1.0.0",
     orientation: "portrait",

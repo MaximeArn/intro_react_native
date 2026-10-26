@@ -15,6 +15,7 @@ import {
 import { deleteAllComments } from "@/services/comments";
 import { deleteImage, uploadImage } from "@/services/storage";
 import type { Address, NewAddress } from "@/types/address";
+import { mergeAddresses } from "@/utils/merge-addresses";
 
 export const ADDRESSES_COLLECTION = "addresses";
 
@@ -89,16 +90,7 @@ export function subscribeToVisibleAddresses(
 
   const emit = () => {
     if (!publicAddresses || !ownAddresses) return;
-    const byId = new Map(
-      [...publicAddresses, ...ownAddresses].map((address) => [
-        address.id,
-        address,
-      ]),
-    );
-    const merged = [...byId.values()].sort(
-      (a, b) => (b.createdAt?.getTime() ?? 0) - (a.createdAt?.getTime() ?? 0),
-    );
-    onChange(merged);
+    onChange(mergeAddresses(publicAddresses, ownAddresses));
   };
 
   const unsubscribePublic = onSnapshot(

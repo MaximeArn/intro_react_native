@@ -58,10 +58,14 @@
     "ios": "expo run:ios",
     "lint": "expo lint",
     "test": "jest --watchAll",
+    "test:ci": "jest",
     "devbuild": "npx eas build --profile development --platform ios"
   },
   "private": true,
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    }
   }
 }
