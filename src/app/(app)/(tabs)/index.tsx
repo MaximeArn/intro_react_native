@@ -1,16 +1,21 @@
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { router } from "expo-router";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import FilterMenu from "@/components/filter-menu";
 import { DEFAULT_REGION, regionAround } from "@/constants/map";
 import { colors, radius, shadow, spacing, typography } from "@/constants/theme";
 import { type Coordinates, useUserLocation } from "@/hooks/use-user-location";
 import useAddressesStore from "@/stores/addresses.store";
 import useAuthStore from "@/stores/auth.store";
 import type { Address } from "@/types/address";
+import { type AddressFilter, filterAddresses } from "@/utils/address-filters";
+
+// Taille du bouton des filtres : les bandeaux s'affichent juste en dessous
+const FLOATING_BUTTON_SIZE = 52;
 
 // Couleur du pin : mes adresses publiques, mes adresses privées, celles des autres
 const pinColor = (address: Address, isMine: boolean) => {
@@ -35,6 +40,24 @@ export default function Home() {
   const userId = useAuthStore((state) => state.user?.uid);
   const addresses = useAddressesStore((state) => state.addresses);
   const addressesError = useAddressesStore((state) => state.error);
+  const [filter, setFilter] = useState<AddressFilter>("all");
+
+  const visibleAddresses = filterAddresses(addresses, filter, userId);
+  const filterOptions = [
+    { value: "all" as const, label: "Toutes", count: addresses.length },
+    {
+      value: "mine" as const,
+      label: "Mes adresses",
+      count: filterAddresses(addresses, "mine", userId).length,
+      dotColor: colors.primary,
+    },
+    {
+      value: "community" as const,
+      label: "Communauté",
+      count: filterAddresses(addresses, "community", userId).length,
+      dotColor: colors.accent,
+    },
+  ];
 
   // Centre automatiquement la carte la première fois que la position arrive
   useEffect(() => {
@@ -67,7 +90,7 @@ export default function Home() {
         // Appui long : nouvelle adresse à l'endroit touché
         onLongPress={(event) => openNewAddress(event.nativeEvent.coordinate)}
       >
-        {addresses.map((address) => {
+        {visibleAddresses.map((address) => {
           const isMine = address.ownerId === userId;
           return (
             <Marker
@@ -86,52 +109,53 @@ export default function Home() {
         })}
       </MapView>
 
-      {addressesError && (
-        <View
-          testID="addresses-error-banner"
-          style={[
-            styles.banner,
-            { top: insets.top + spacing.sm + (status === "denied" ? 96 : 0) },
-          ]}
-        >
-          <MaterialCommunityIcons
-            name="cloud-alert-outline"
-            size={22}
-            color={colors.accent}
-          />
-          <Text style={[styles.bannerText, styles.bannerContent]}>
-            {addressesError}
-          </Text>
-        </View>
-      )}
+      {/* Bandeaux éventuels, empilés sous le bouton des filtres.
+          box-none : la carte reste manipulable entre les éléments */}
+      <View
+        pointerEvents="box-none"
+        style={[
+          styles.overlay,
+          { top: insets.top + spacing.sm + FLOATING_BUTTON_SIZE + spacing.sm },
+        ]}
+      >
+        {status === "denied" && (
+          <View testID="location-denied-banner" style={styles.banner}>
+            <MaterialCommunityIcons
+              name="map-marker-off-outline"
+              size={22}
+              color={colors.accent}
+            />
+            <View style={styles.bannerContent}>
+              <Text style={styles.bannerTitle}>Localisation désactivée</Text>
+              <Text style={styles.bannerText}>
+                Active-la pour centrer la carte sur ta position.
+              </Text>
+            </View>
+            <Pressable
+              onPress={recenter}
+              hitSlop={8}
+              style={({ pressed }) => pressed && styles.pressed}
+            >
+              <Text style={styles.bannerAction}>
+                {canAskAgain ? "Activer" : "Réglages"}
+              </Text>
+            </Pressable>
+          </View>
+        )}
 
-      {status === "denied" && (
-        <View
-          testID="location-denied-banner"
-          style={[styles.banner, { top: insets.top + spacing.sm }]}
-        >
-          <MaterialCommunityIcons
-            name="map-marker-off-outline"
-            size={22}
-            color={colors.accent}
-          />
-          <View style={styles.bannerContent}>
-            <Text style={styles.bannerTitle}>Localisation désactivée</Text>
-            <Text style={styles.bannerText}>
-              Active-la pour centrer la carte sur ta position.
+        {addressesError && (
+          <View testID="addresses-error-banner" style={styles.banner}>
+            <MaterialCommunityIcons
+              name="cloud-alert-outline"
+              size={22}
+              color={colors.accent}
+            />
+            <Text style={[styles.bannerText, styles.bannerContent]}>
+              {addressesError}
             </Text>
           </View>
-          <Pressable
-            onPress={recenter}
-            hitSlop={8}
-            style={({ pressed }) => pressed && styles.pressed}
-          >
-            <Text style={styles.bannerAction}>
-              {canAskAgain ? "Activer" : "Réglages"}
-            </Text>
-          </Pressable>
-        </View>
-      )}
+        )}
+      </View>
 
       <View style={styles.fabs}>
         <Pressable
@@ -163,6 +187,14 @@ export default function Home() {
           />
         </Pressable>
       </View>
+
+      {/* En dernier : le menu ouvert passe au-dessus de tout le reste */}
+      <FilterMenu
+        options={filterOptions}
+        value={filter}
+        onChange={setFilter}
+        style={{ top: insets.top + spacing.sm, left: spacing.md }}
+      />
     </View>
   );
 }
@@ -171,10 +203,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  banner: {
+  overlay: {
     position: "absolute",
     left: spacing.md,
     right: spacing.md,
+    gap: spacing.sm,
+  },
+  banner: {
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.sm,

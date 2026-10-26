@@ -17,7 +17,6 @@ import { getErrorMessage } from "@/utils/error-messages";
 const NAME_MAX_LENGTH = 80;
 const DESCRIPTION_MAX_LENGTH = 500;
 
-// Position transmise par un appui long sur la carte d'accueil
 const parseCoordinates = (params: {
   latitude?: string;
   longitude?: string;

@@ -17,30 +17,17 @@ export default function RootLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Accueil",
+          title: "Carte",
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="home" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="list"
-        options={{
-          title: "Liste",
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name="format-list-bulleted"
-              color={color}
-              size={size}
-            />
+            <MaterialCommunityIcons name="map" color={color} size={size} />
           ),
         }}
       />
       <Tabs.Screen
         name="account"
         options={{
-          title: "Compte",
+          title: "Profil",
           tabBarButtonTestID: "account-tab",
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons

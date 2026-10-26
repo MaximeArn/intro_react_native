@@ -20,7 +20,7 @@ export default {
     },
     android: {
       adaptiveIcon: {
-        backgroundColor: "#E6F4FE",
+        backgroundColor: "#2F5D3A",
         foregroundImage: "./assets/images/android-icon-foreground.png",
         backgroundImage: "./assets/images/android-icon-background.png",
         monochromeImage: "./assets/images/android-icon-monochrome.png",
@@ -37,8 +37,10 @@ export default {
         "expo-splash-screen",
         {
           backgroundColor: "#FAF6EC",
+          // Première image de l'animation du splash JS, à la même largeur que
+          // son LottieView : le passage du splash natif au splash animé est invisible
           image: "./assets/images/splash-icon.png",
-          imageWidth: 76,
+          imageWidth: 260,
         },
       ],
       "expo-status-bar",
