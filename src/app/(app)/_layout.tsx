@@ -28,7 +28,11 @@ export default function RootLayout() {
         name="addresses/new"
         options={{ presentation: "modal", title: "Nouvelle adresse" }}
       />
-      <Stack.Screen name="addresses/[id]" options={{ title: "" }} />
+      <Stack.Screen name="addresses/[id]/index" options={{ title: "" }} />
+      <Stack.Screen
+        name="addresses/[id]/review"
+        options={{ presentation: "modal", title: "Donner mon avis" }}
+      />
     </Stack>
   );
 }

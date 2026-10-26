@@ -19,11 +19,14 @@ export {
   deleteDoc,
   doc,
   GeoPoint,
+  getDocs,
   onSnapshot,
+  orderBy,
   query,
   serverTimestamp,
   setDoc,
   where,
+  writeBatch,
   type QuerySnapshot,
 } from "@react-native-firebase/firestore";
 export {

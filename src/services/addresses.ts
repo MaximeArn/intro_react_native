@@ -12,6 +12,7 @@ import {
   setDoc,
   where,
 } from "@/services/firebase";
+import { deleteAllComments } from "@/services/comments";
 import { deleteImage, uploadImage } from "@/services/storage";
 import type { Address, NewAddress } from "@/types/address";
 
@@ -53,6 +54,7 @@ export async function createAddress(input: NewAddress): Promise<string> {
 }
 
 export async function deleteAddress(address: Address): Promise<void> {
+  await deleteAllComments(address.id);
   await deleteDoc(doc(db, ADDRESSES_COLLECTION, address.id));
   if (address.photoURL) deleteImage(address.photoURL).catch(() => {});
 }
