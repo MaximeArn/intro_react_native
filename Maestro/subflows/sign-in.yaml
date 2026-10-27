@@ -1,0 +1,21 @@
+appId: com.maximearnould.intro
+env:
+  EMAIL: e2e@pinly.test
+  PASSWORD: Test1234!
+---
+- tapOn:
+    id: email-input
+- inputText: ${EMAIL}
+- tapOn:
+    id: password-input
+- inputText: ${PASSWORD}
+- scroll
+- tapOn:
+    id: sign-in-button
+- tapOn:
+    text: "Not Now|Plus tard"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: home-screen
+    timeout: 15000

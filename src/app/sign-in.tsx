@@ -48,6 +48,7 @@ export default function SignIn() {
       <ScrollView
         contentContainerStyle={styles.container}
         keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag"
       >
         <View style={styles.header}>
           <MapPinAnimation />

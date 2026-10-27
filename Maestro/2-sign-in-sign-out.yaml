@@ -1,0 +1,38 @@
+appId: com.maximearnould.intro
+name: Connexion et déconnexion
+---
+- runFlow: subflows/launch.yaml
+
+# Mauvais mot de passe : un message compréhensible s'affiche
+- tapOn:
+    id: email-input
+- inputText: e2e@pinly.test
+- tapOn:
+    id: password-input
+- inputText: mauvais-mot-de-passe
+- scroll
+- tapOn:
+    id: sign-in-button
+- extendedWaitUntil:
+    visible:
+      id: sign-in-error
+      text: Email ou mot de passe incorrect.
+    timeout: 10000
+
+# Bons identifiants
+- tapOn:
+    id: email-input
+- eraseText
+- tapOn:
+    id: password-input
+- eraseText
+- runFlow: subflows/sign-in.yaml
+
+- tapOn:
+    id: account-tab
+- tapOn:
+    id: sign-out-button
+- extendedWaitUntil:
+    visible:
+      id: email-input
+    timeout: 10000

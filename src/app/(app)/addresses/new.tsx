@@ -56,7 +56,7 @@ export default function NewAddress() {
 
     setIsSubmitting(true);
     try {
-      await createAddress({
+      const id = await createAddress({
         name: name.trim(),
         description: description.trim(),
         isPublic,
@@ -64,7 +64,7 @@ export default function NewAddress() {
         formattedAddress: location.formattedAddress ?? null,
         localPhotoUri: photoUri,
       });
-      router.back();
+      router.replace({ pathname: "/addresses/[id]", params: { id } });
     } catch (e) {
       setError(getErrorMessage(e, "L’adresse n’a pas pu être enregistrée."));
       setIsSubmitting(false);
@@ -93,6 +93,7 @@ export default function NewAddress() {
       <ScrollView
         contentContainerStyle={styles.container}
         keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag"
         automaticallyAdjustKeyboardInsets
       >
         <PhotoPickerField

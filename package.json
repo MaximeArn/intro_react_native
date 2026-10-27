@@ -59,6 +59,7 @@
     "lint": "expo lint",
     "test": "jest --watchAll",
     "test:ci": "jest",
+    "test:e2e": "maestro test Maestro",
     "devbuild": "npx eas build --profile development --platform ios"
   },
   "private": true,

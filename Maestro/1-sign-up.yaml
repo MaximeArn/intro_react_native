@@ -1,0 +1,38 @@
+appId: com.maximearnould.intro
+name: Inscription
+---
+- runFlow: subflows/launch.yaml
+- tapOn:
+    id: go-to-sign-up
+
+# Email unique : chaque exécution crée un nouveau compte
+- evalScript: ${output.email = 'e2e-' + Date.now() + '@pinly.test'}
+
+- tapOn:
+    id: sign-up-display-name-input
+- inputText: Testeur E2E
+- tapOn:
+    id: sign-up-email-input
+- inputText: ${output.email}
+- tapOn:
+    id: sign-up-password-input
+- inputText: Test1234!
+- tapOn:
+    id: sign-up-password-confirm-input
+- inputText: Test1234!
+- scroll
+- tapOn:
+    id: sign-up-button
+- tapOn:
+    text: "Not Now|Plus tard"
+    optional: true
+
+- extendedWaitUntil:
+    visible:
+      id: home-screen
+    timeout: 15000
+- tapOn:
+    id: account-tab
+- assertVisible:
+    id: account-display-name
+    text: Testeur E2E

@@ -1,0 +1,25 @@
+appId: com.maximearnould.intro
+name: Avis sur une adresse publique
+---
+# Crée une adresse publique et arrive sur sa fiche
+- runFlow: 3-create-address.yaml
+
+- scrollUntilVisible:
+    element:
+      id: add-review-button
+- tapOn:
+    id: add-review-button
+
+- tapOn:
+    id: rating-star-4
+- tapOn:
+    id: review-text
+- inputText: Super endroit, je recommande !
+- scroll
+- tapOn:
+    id: review-submit
+
+- scrollUntilVisible:
+    element:
+      text: Super endroit, je recommande !
+    timeout: 15000

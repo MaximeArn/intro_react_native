@@ -66,6 +66,7 @@ export default function SignUp() {
       <ScrollView
         contentContainerStyle={styles.container}
         keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag"
       >
         <View style={styles.header}>
           <MapPinAnimation />

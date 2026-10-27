@@ -1,0 +1,45 @@
+appId: com.maximearnould.intro
+name: Création d'une adresse publique
+---
+- runFlow: subflows/launch.yaml
+- runFlow: subflows/sign-in.yaml
+
+- evalScript: ${output.addressName = 'Adresse E2E ' + Date.now()}
+
+- tapOn:
+    id: add-address-button
+- tapOn:
+    id: new-address-name
+- inputText: ${output.addressName}
+# Ferme le clavier, qui cache le champ description
+- scroll
+- tapOn:
+    id: new-address-description
+- inputText: Une adresse créée par un test e2e
+- scroll
+- tapOn:
+    id: visibility-public
+
+# Place le pin en touchant la mini-carte, puis attend l'adresse trouvée
+- scrollUntilVisible:
+    element:
+      id: location-picker-map
+- tapOn:
+    id: location-picker-map
+- extendedWaitUntil:
+    visible:
+      id: location-picker-address
+    timeout: 10000
+
+- scrollUntilVisible:
+    element:
+      id: new-address-submit
+- tapOn:
+    id: new-address-submit
+
+# Après l'enregistrement, la fiche de la nouvelle adresse s'ouvre
+- extendedWaitUntil:
+    visible:
+      id: address-name
+      text: ${output.addressName}
+    timeout: 20000

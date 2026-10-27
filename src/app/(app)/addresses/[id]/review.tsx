@@ -78,6 +78,7 @@ export default function NewReview() {
       <ScrollView
         contentContainerStyle={styles.container}
         keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag"
         automaticallyAdjustKeyboardInsets
       >
         {addressName && <Text style={styles.addressName}>{addressName}</Text>}

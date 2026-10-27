@@ -45,3 +45,6 @@ yarn-error.*
 /config
 # Firebase service account (secret)
 *-firebase-adminsdk-*.json
+
+# Captures des tests e2e
+Maestro/screenshots/

@@ -19,6 +19,7 @@ export default function RootLayout() {
         options={{
           title: "Carte",
           headerShown: false,
+          tabBarButtonTestID: "map-tab",
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="map" color={color} size={size} />
           ),

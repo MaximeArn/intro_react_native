@@ -1,0 +1,23 @@
+appId: com.maximearnould.intro
+---
+# clearKeychain : Firebase y stocke la session, l'app démarre donc déconnectée
+- launchApp:
+    clearKeychain: true
+    permissions:
+      location: inuse
+
+# Le dev client peut afficher son écran d'accueil par-dessus l'app
+- extendedWaitUntil:
+    visible:
+      text: "Continue|Se connecter"
+    timeout: 20000
+- runFlow:
+    when:
+      visible: Continue
+    commands:
+      - tapOn: Continue
+
+- extendedWaitUntil:
+    visible:
+      id: email-input
+    timeout: 10000
