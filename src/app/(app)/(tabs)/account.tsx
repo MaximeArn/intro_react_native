@@ -1,4 +1,5 @@
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { router } from "expo-router";
 import { useState } from "react";
 import {
   ActivityIndicator,
@@ -175,6 +176,16 @@ export default function Account() {
           />
         </View>
       </View>
+
+      {__DEV__ && (
+        <View style={styles.group}>
+          <InfoRow
+            icon="book-open-variant"
+            label="Storybook"
+            onPress={() => router.push("/storybook")}
+          />
+        </View>
+      )}
 
       <SignOutButton />
 

@@ -84,7 +84,11 @@ export default {
         {
           ios: {
             useFrameworks: "dynamic",
-            forceStaticLinking: ["react-native-maps", "ExpoImagePicker"],
+            forceStaticLinking: [
+              "react-native-maps",
+              "ExpoImagePicker",
+              "RNSVG",
+            ],
           },
         },
       ],
